@@ -4,15 +4,17 @@ m = nil
 
 -- Sends a simple ping to the broker
 local function send_ping()  
-    m:publish(config.ENDPOINT .. "ping","id=" .. config.ID,0,0)
+    m:publish(config.ENDPOINT .. "ping","id=" .. config.ID,2,0)
 end
 
 -- Sends my id to the broker for registration
 local function register_myself()  
-    m:subscribe(config.ENDPOINT .. config.ID,0,function(conn)
+    m:subscribe(config.ENDPOINT .. config.ID,2,function(conn)
         print("Successfully subscribed to data endpoint")
         print("Cihaz Adi : " .. config.ID)
     end)
+
+    m:lwt("/lwt", "offline", 2, 0)
 end
 
 local function mqtt_start()  
@@ -31,7 +33,7 @@ local function mqtt_start()
     -- Connect to broker
     m:connect(config.HOST, config.PORT, 0, 1, function(con) 
         register_myself()
-        pir.start()
+        --pir.start()
         light.start()
         -- And then pings each 1000 milliseconds
         tmr.stop(6)

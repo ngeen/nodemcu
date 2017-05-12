@@ -1,10 +1,10 @@
 -- file : config.lua
 local module = {}
 
-module.ssid = "ngeenEv"
-module.pass = "Efe22082013"
+module.ssid = ""
+module.pass = ""
 
-module.HOST = "shodom.com"  
+module.HOST = "mqtt.shodom.com"  
 module.PORT = 1883  
 module.ID = node.chipid()
 
